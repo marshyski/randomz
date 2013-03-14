@@ -1,0 +1,207 @@
+#!/bin/bash
+############################################
+## CREATED BY TIM SKI | MARSHYSKI(DOT)COM ##
+## MARSHYSKI[AT]GMAIL[DOT]COM             ##
+## INTERNAL BASH CHAT		          ##
+## 03MAR2013                              ##
+## TESTED ON RHEL 5-6                     ##
+############################################
+
+function cleanExit  {
+   
+   echo "-- ${USER} HAS LEFT `date +%H:%M:%S` --" >> ${CHATROOM}
+   exit 0
+}
+
+## INITIAL SETUP
+
+trap cleanExit INT
+
+# Initialize Variables
+INDEX=1
+CLOSE=0
+CHATNUM=0
+PROFILE="${USER}@${HOSTNAME}"
+
+# Arguments
+HELP=0
+NOCOLOR=0
+GUI=0
+
+MYPATH=/home/common     #`dirname \`readlink ${0}\``	# This saves the path of the folder this script is located in.
+
+# This list is prioritized by viewing ease with my terminal (i.e. a black background ( \033[40m )).
+# These values just reference the colors defined in your gnome-terminal profile.
+# The color names are approximations for the default colors.
+
+COLOR[1]="\033[1;36m"		#CYAN
+COLOR[2]="\033[1;32m"		#GREEN
+COLOR[3]="\033[1;33m"		#GOLD
+COLOR[4]="\033[1;31m"		#RED
+COLOR[5]="\033[1;34m"		#LILAC
+COLOR[6]="\033[1;35m"		#PINK
+COLOR[7]="\033[0;37m"		#GRAY
+COLOR[8]="\033[0;31m"		#CRIMSON
+COLOR[9]="\033[0;33m"		#ORANGE
+COLOR[10]="\033[0;35m"		#MAGENTA
+COLOR[11]="\033[0;36m"		#TURQUOISE
+COLOR[12]="\033[0;32m"		#DARK_GREEN
+COLOR[13]="\033[0;34m"		#BLUE
+COLOR[14]="\033[1;30m"		#DARK_GRAY
+COLOR[15]="\033[1;37m"		#WHITE (15+ user color)
+COLOR[16]="\033[0;30m"		#BLACK (invisible)
+
+echo
+
+## PARSE THE ARGUMENTS
+
+for arg in $@; do
+   if [[ ${arg} = "-g" ]]; then
+      GUI=1
+      elif [[ ${arg} = "--help" ]] || [[ ${arg} = "-h" ]]; then
+      HELP=1
+      elif [[ ${arg} = "-n" ]]; then
+      NOCOLOR=1
+   else
+      echo "Arg #${INDEX} (${arg}) is unrecognized."
+      let "CLOSE++"
+   fi
+   
+   let "INDEX++"
+done;
+
+if [[ ${CLOSE} -gt 0 ]]; then			# Invalid Arguments
+   echo "${CLOSE} argument(s) invalid."
+   echo
+   exit 1
+fi
+
+INDEX=1
+
+## DISPLAY THE HELP MESSAGE
+
+if [[ ${HELP} = 1 ]]; then
+   echo "USAGE:   securechat -arg1 -arg2 -arg3 ..."
+   echo
+   echo "This program currently has no arguments.  Just type \"securechat\" into your terminal!"
+   echo "--------------------------------------------------------------------------------"
+   echo
+   echo "-g        Runs the chat program graphically.  Only works if 'wish' is installed."
+   echo
+   echo "-h        Display this help message, then exit.  Other arguments are ignored."
+   echo
+   echo "-n        Run the chatroom with no color.  This option speeds up the refresh rate."
+   echo
+   
+   exit 0
+fi
+
+## RUN WITH THE GUI
+
+if [[ ${GUI} = 1 ]]; then
+   
+   ${MYPATH}/securechat_tcl ${MYPATH}
+   
+   exit 0
+fi
+
+## SET THE PROFILE VARIABLE
+
+#while [[ ${#PROFILE} -lt 40 ]]; do			# This aligns the text for users with different length names.
+#	PROFILE="${PROFILE} "
+#done
+
+## SELECT THE CHATROOM
+
+mkdir -p ${MYPATH}/securechat
+
+for team in `find ${MYPATH}/securechat/* -type d 2>/dev/null`; do						# Display the team selection menu.
+   echo "${INDEX}) `basename ${team}`"
+   let "INDEX++"
+done
+
+echo "${INDEX}) Create a new chatroom"
+echo
+
+while [[ ${CHATNUM} < 1 || ${CHATNUM} > ${INDEX} ]]; do
+   read -p "Which room would you like to enter? (1 - ${INDEX}): " CHATNUM
+done
+
+if [[ ${CHATNUM} < ${INDEX} ]]; then
+   CHATROOM=`basename \`find ${MYPATH}/securechat/* -type d | tr "\n" " " | awk '{print $'$CHATNUM'}'\``	# Select the proper chatroom.
+else
+   read -p "What would you like the name of the new room to be? " CHATROOM					# Set up a new chatroom.
+fi
+
+CHATPATH=${MYPATH}/securechat/${CHATROOM}
+mkdir -p ${CHATPATH}										# Create the chatroom if necessary.
+
+CHATROOM=${CHATPATH}/${CHATROOM}-`date +%D | tr "/" "_"`					# Make a new chatroom log every day.
+COLORPROP=${CHATPATH}/.color_properties-`date +%D | tr "/" "_"`					# Assign new colors each day.
+
+touch -f ${CHATROOM}
+chmod -Rf 0777 ${CHATPATH}
+
+if ! [[ -e ${COLORPROP} ]]; then
+   rm -f ${CHATPATH}/.color_properties-*							# If this color properties file is not from today, delete it.
+   touch -f ${COLORPROP}
+   chmod -f 0777 ${COLORPROP}
+   echo -e "# This is a list of users prioritized by first entry into ${CHATROOM}\n" > ${COLORPROP}
+fi
+
+## CHAT
+
+echo "-- ${USER} HAS ENTERED `date +%H:%M:%S` --" >> ${CHATROOM}
+
+while [[ 1 ]] ; do
+   LASTWRITE=`tail -n 1 ${CHATROOM}`					# Save the time of the last message.
+   
+   clear
+   
+   if [[ ${NOCOLOR} = 1 ]]; then						# Print out the recent conversation history without color (fast)
+      tail -n 50 ${CHATROOM}
+   else									# Print out the recent conversation history with color (slow)
+      ORIGINALIFS=$IFS
+      IFS=$(echo -en "\n\b")
+      for line in `tail -n 50 ${CHATROOM}`; do
+         if ! [[ $line =~ "^--.*" ]]; then
+            LINEUSER=`echo $line | sed 's/\@.*//'`
+            COLORNUM=`grep "${LINEUSER}" ${COLORPROP} 2>/dev/null | sed 's/.*=COLOR_//'`
+            if [[ ${COLORNUM} -gt 15 ]]; then
+               COLORNUM=15
+            fi
+            echo -e "${COLOR[${COLORNUM}]}$line\033[0m"
+         else
+            echo $line
+         fi
+      done
+      IFS=${ORIGINALIFS}
+   fi
+   
+   echo ""
+   echo -n "You're now in `basename ${CHATPATH}`"
+   echo ""
+   echo -e "\n====================================================================="
+   echo -n ": ${message}"
+   
+   while [[ ${LASTWRITE} =  `tail -n 1 ${CHATROOM}` ]]; do		# Wait for input if there is no newer message than the last displayed one.
+      ORIGINALIFS=$IFS
+      IFS=$(echo -en "\n\b")
+      read -t 1 -n 1 tempmessage
+      RETURNSTAT=$?						# Save the return status of the read command.
+      message=${message}${tempmessage}
+      
+      if [[ ${RETURNSTAT} = 0 && ${tempmessage} = "" && ${message} != "" ]] ; then
+         echo "${PROFILE} `date +%H:%M:%S` > ${message}" >> ${CHATROOM}		# Print out the message with a username and timestamp.
+         message=""
+         
+         if [[ `grep -c "${USER}" ${COLORPROP}` = 0 ]]; then			# If this is the user's first time chatting today, assign them a color.
+            answer=`grep -c "=COLOR_" ${COLORPROP}`
+            echo $answer
+            echo "${USER}=COLOR_`expr \`expr \\\`grep -c "=COLOR_" ${COLORPROP}\\\` + 1\` % 15`" >> ${COLORPROP}
+         fi
+      fi
+      tempmessage=""
+      IFS=${ORIGINALIFS}
+   done
+done

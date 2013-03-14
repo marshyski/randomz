@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+	<link rel="alternate" type="application/rss+xml" title="RSS" href="http://marshyski.tumblr.com/rss"/>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="Offical Website of Marshy Ski" />
+	<meta name="keywords" content="Indie Rock, Singer Songwriter, Emo, Folk, Linux, Bash Scripts" />
+	<meta name="author" content="Marshy Ski" />
+	<link rel="stylesheet" type="text/css" href="../ski.css" title="Ski" media="all" />
+	<title>m4r5hy 5K1 - About Marshy Ski</title>
+	<link rel="shortcut icon" href="../images/headphones.png">
+</head>
+
+<body>
+<div id="wrap">
+	<div id="sidebar">
+		<h1>MARSHY SKI</h1>
+		<p class="slogan">And Me</p>
+
+		<ul>
+			<li><a href="http://marshyski.com" class="tt">01: Blog<span class="tooltip"><span class="top"></span><span class="middle">The Great Adventures of Tim Ski</span><span class="bottom"></span></span></a></li>
+			<li><b><a href="../marshyski" class="tt" class="current">02: Marshy Ski<span class="tooltip"><span class="top"></span><span class="middle">About Marshy Ski</span><span class="bottom"></span></span></b></a></li>
+			<li><a href="../timski" class="tt">03: Man Behind The Keyboard<span class="tooltip"><span class="top"></span><span class="middle">About Tim Ski</span><span class="bottom"></span></span></a></li>
+			<li><a href="../downloadables" class="tt">04: Downloadables<span class="tooltip"><span class="top"></span><span class="middle">Stream MP3's, Videos, etc.</span><span class="bottom"></span></span></a></li>
+			<li><a href="../studio" class="tt">05: The Studio<span class="tooltip"><span class="top"></span><span class="middle">Recording Studio</span><span class="bottom"></span></span></a></li>
+			<li><a href="../unixscripts" class="tt">06: UNIX Scripts<span class="tooltip"><span class="top"></span><span class="middle">Shell,Configs,Kickstart Scripts</span><span class="bottom"></span></span></a></li>
+		</ul>
+		
+		<br><br><br><br><br><br><br>
+
+		<div class="right">
+			<h2><font size="6">SUPER</font> Important Links...</h2>
+			<a href="../records" target="_blank">My Complete List of Vinyl Records</a><br>
+			<a href="http://mfski.mdns.org" target="_blank">Public Server mfski.mdns.org Project</a><br>
+			<a href="http://www.bigschoolrecords.com" target="_blank">Big School Records</a><br>
+			<a href="http://code.google.com/p/notes-ski/" target="_blank">Notes! Code Project</a><br>
+			<a href="http://www.sqlhammer.com/blog/" target="_blank">The One Stop SQL Blog</a><br>
+			<a href="http://www.mattmakai.com/" target="_blank">The One Stop Python / Web Development Blog</a>	
+		</div>
+		<hr class="clear" />
+	</div>
+	
+<script type="text/javascript" src="../jquery-1.2.6.min.js"></script>
+<script type="text/javascript">
+function slideSwitch() {
+    var $active = $('#slideshow IMG.active');
+    if ( $active.length == 0 ) $active = $('#slideshow IMG:last');
+
+    var $next =  $active.next().length ? $active.next()
+        : $('#slideshow IMG:first');    
+     var $sibs  = $active.siblings();
+     var rndNum = Math.floor(Math.random() * $sibs.length );
+     var $next  = $( $sibs[ rndNum ] );
+     
+    $active.addClass('last-active');
+    $next.css({opacity: 0.0})
+        .addClass('active')
+        .animate({opacity: 1.0}, 1000, function() {
+            $active.removeClass('active last-active');
+        });
+}
+$(function() {
+    setInterval( "slideSwitch()", 6000 );
+});
+</script>
+
+<div id="content">
+<div id="slideshow">
+    <img src="../images/cyberwar.jpg" width="560" height="300" class="active" />
+    <img src="../images/tank.jpg" width="560" height="300" />
+    <img src="../images/android.jpg" width="560" height="300" />
+    <img src="../images/comic.jpg" width="560" height="300" />
+</div>
+
+		<div class="post">
+			<h2>About Marshy Ski</h2>
+			<p><font size="5" face="Georgia, Arial" color="#FFFFFF">M</font>arshy Ski, an on-going Indie rock project, sometimes solo, sometimes with friends.  The inspiration was formed at such a young age; it was hard to take Marshy Ski hundred percent active.  More time and mature-ness ended up landing me a chance to accomplish what I originally started years ago. Playing from just acoustic to adding friends I finally started seeing progress to something more then the music I enjoyed, I seen Marshy Ski come alive.  Taking the music that motivated me the most and style I developed playing guitar landed me right where I wanted from three years ago.  The only thing that could stop Marshy Ski from happening would be death.
+			<br><br>
+			<h2>Past Bands</h2>
+			Pocket Full of Wood (Alternative/Post-Hardcore)   <a href="http://www.myspace.com/pocketfullofwood" target="_blank">Myspace</a><br>                 
+			Gimcrack (Hardcore-Metal)<br>                                                     
+			Her Vendetta (Hardcore)  *Guest Guitar*   <a href="http://www.myspace.com/hervendettapa" target="_blank">Myspace</a>
+			</p>
+		</div>
+		<hr class="clear" />
+	</div>
+
+	<br><br><br><br><br><br><br><br>
+	<div id="footer">
+	<ul class="bubblewrap">
+	&copy;2007-2012 Marshy Ski - All Rights Reserved.  <li><a href="https://www.facebook.com/marshyski" target="_blank" title="Add to Facebook"><img src="../images/fbicon.jpg"></a><a href="http://marshyski.tumblr.com" target="_blank" title="Add to Tumblr"><img src="../images/ticon.png"></a><a href="http://marshyski.tumblr.com/rss" target="_blank" title="Subscribe to RSS"><img src="../images/rss.png"></a></li>MARSHYSKI[AT]GMAIL[DOT]COM
+	</ul>
+	</div>
+</div>
+</body>
+</html>
