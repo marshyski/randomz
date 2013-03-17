@@ -1,0 +1,48 @@
+## INSTALL AUDIT / SERVICE START / CHKCONFIG ON / CONFIGS / REMOVE RPMNEW
+
+class auditd {
+
+	## INSTALL AUDITD
+	package {'audit':
+	  ensure => installed;
+	}	
+
+	## START AUDITD DAEMON
+	service {'auditd':
+	  ensure    => running,
+	  enable    => true,
+	  hasstatus => true,
+	  require   => Package['audit'],
+	}
+
+	## COPY CONFIG AUDIT RULES
+	file { '/etc/audit/audit.rules':
+          ensure  =>  present,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0600',
+          source  => 'puppet:///modules/auditd/audit.rules',
+	  require => Package['audit'],
+        }
+
+	## COPY CONFIG AUDITD 
+	file { '/etc/audit/auditd.conf':
+          ensure  =>  present,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0600',
+          source  => 'puppet:///modules/auditd/auditd.conf',
+          require => Package['audit'],
+	}
+	
+	## REMOVE RPMNEW FILES
+	file {
+	  [	
+	    '/etc/audit/audit.rules.rpmnew',
+	    '/etc/audit/audit.conf.rpmnew',
+	  ]:
+	    ensure  => absent,
+	    require => Package['audit'],
+	}
+
+}
