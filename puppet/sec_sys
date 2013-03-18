@@ -30,7 +30,7 @@ class sec_sys {
 	    'rdate',
 	    'gnome-games',
 	    'zsh',
-	    'iptables-ipv6',
+#	    'iptables-ipv6',
 	    'valgrind',
 	    'rcs',
 	    'compiz',
