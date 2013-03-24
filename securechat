@@ -86,21 +86,10 @@ if [[ ${HELP} = 1 ]]; then
    echo "This program currently has no arguments.  Just type \"securechat\" into your terminal!"
    echo "--------------------------------------------------------------------------------"
    echo
-   echo "-g        Runs the chat program graphically.  Only works if 'wish' is installed."
-   echo
    echo "-h        Display this help message, then exit.  Other arguments are ignored."
    echo
    echo "-n        Run the chatroom with no color.  This option speeds up the refresh rate."
    echo
-   
-   exit 0
-fi
-
-## RUN WITH THE GUI
-
-if [[ ${GUI} = 1 ]]; then
-   
-   ${MYPATH}/securechat_tcl ${MYPATH}
    
    exit 0
 fi
