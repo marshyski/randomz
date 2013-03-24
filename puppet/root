@@ -17,10 +17,10 @@ class superuser {
 
         file {
           '/root':
-	    ensure => directory,
-            owner  => root,
-            group  => root,
-            mode   => '0700',
+	    ensure  => directory,
+            owner   => root,
+            group   => root,
+            mode    => '0700',
 	    require => User['root'],
 	}
 
@@ -29,6 +29,6 @@ class superuser {
   	  command     => '/usr/bin/chage -d 19877 root',
   	  subscribe   => User['root'],
   	  refreshonly => true,
-	  require => User['root'],
+	  require     => User['root'],
 	}
 }
