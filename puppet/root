@@ -12,7 +12,6 @@ class superuser {
           managehome => true,
 	  command    => '/root/randomz/root_passwd.sh',
 #         password   => '$1$ldkfhgoe$/E/UcisaItL3TZmUv/1C//',
-#         sshkeys    =>
         }
 
         file {
@@ -21,6 +20,7 @@ class superuser {
             owner   => root,
             group   => root,
             mode    => '0700',
+	    command => '/usr/bin/setfacl -b /root',
 	    require => User['root'],
 	}
 
