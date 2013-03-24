@@ -1,9 +1,9 @@
 ## MANAGE ROOT'S ACCOUNT / CHANGE ROOT'S PASSWD
 
 class superuser {
-	  
-	  ## MANAGE ROOT'S ACCOUNT
-	  user  { 'root':
+
+	 ## MANAGE ROOT'S ACCOUNT
+	user  { 'root':
           ensure     => present,
           uid        => '0',
           gid        => '0',
@@ -14,7 +14,15 @@ class superuser {
 #         password   => '$1$ldkfhgoe$/E/UcisaItL3TZmUv/1C//',
 #         sshkeys    =>
         }
-	
+
+        file {
+          '/root':
+	    ensure => directory,
+            owner  => root,
+            group  => root,
+            mode   => '0700',
+	}
+
 	## KEEP 1:60:14 IN SHADOW/LOGIN.DEFS AND CHANGE PASSWORD EXPIRE AGE
 	exec { 'reset account age root':
   	  command     => '/usr/bin/chage -d 19877 root',

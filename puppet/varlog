@@ -9,7 +9,8 @@ class varlog {
             mode    => '0640',
             recurse => true;
           '/var/log/audit':
-            owner   => root,
+            ensure  => directory,
+	    owner   => root,
             group   => root,
             mode    => '0640',
             recurse => true,
