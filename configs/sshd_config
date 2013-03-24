@@ -102,7 +102,7 @@ AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
 AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
 AcceptEnv XMODIFIERS
 
-AllowAgentForwarding yes
+AllowAgentForwarding no
 AllowTcpForwarding yes
 #GatewayPorts no
 #X11Forwarding no

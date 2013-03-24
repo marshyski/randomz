@@ -61,10 +61,10 @@ class cron {
      	    owner => root,
      	    group => root,
      	    mode  => '0700';
-	'/var/log/cron*':
-	    owner => root,
-	    group => root,
-	    mode  => '0600';
+#	'/var/log/cron*':
+#	    owner => root,
+#	    group => root,
+#	    mode  => '0600';
 	}
 	
 	## STOP CRON-RELATED SERVICES OFF

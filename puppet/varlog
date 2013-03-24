@@ -1,0 +1,40 @@
+## MANAGE /var/log DIRECTORIES AND FILES
+
+class varlog {
+
+        file {
+          '/var/log':
+            owner   => root,
+            group   => root,
+            mode    => '0640',
+            recurse => true;
+          '/var/log/audit':
+            owner   => root,
+            group   => root,
+            mode    => '0640',
+            recurse => true,
+	    require => File['/var/log'];
+	  ## IF BTMP ISN'T 0600 /var/log/secure WILL COMPLAIN
+          '/var/log/btmp':
+            owner   => root,
+            group   => utmp,
+            mode    => '0600',
+	    require => File['/var/log'];
+          '/var/log/wtmp':
+	    ensure  => present,
+            owner   => root,
+            group   => utmp,
+            mode    => '0660',
+            require => File['/var/log'];
+          '/var/log/lastlog':
+            owner   => root,
+            group   => root,
+            mode    => '0600',
+            require => File['/var/log'];
+	  '/var/log/cron*':
+            owner => root,
+            group => root,
+            mode  => '0600',
+	    require => File['/var/log'];
+	}
+}
