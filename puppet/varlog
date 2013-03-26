@@ -7,13 +7,15 @@ class varlog {
             owner   => root,
             group   => root,
             mode    => '0640',
-            recurse => true;
+            recurse => true,
+	    ignore  => '/var/log';
           '/var/log/audit':
             ensure  => directory,
 	    owner   => root,
             group   => root,
             mode    => '0640',
             recurse => true,
+	    ignore  => '/var/log/audit',
 	    require => File['/var/log'];
 	  ## IF BTMP ISN'T 0600 /var/log/secure WILL COMPLAIN
           '/var/log/btmp':
@@ -38,4 +40,19 @@ class varlog {
             mode  => '0600',
 	    require => File['/var/log'];
 	}
+	
+        exec { 'Fix /var/log directory mode':
+           command => '/bin/chmod -f 0755 /var/log',
+           user    => root,
+	   group   => root,
+           require => File['/var/log'],
+        }
+
+        exec { 'Fix /var/log/audit directory mode':
+           command => '/bin/chmod -f 0700 /var/log/audit',
+           user    => root,
+           group   => root,
+           require => File['/var/log/audit'],
+        }
+
 }
