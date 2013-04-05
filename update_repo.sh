@@ -3,23 +3,23 @@
 ## CREATED BY TIM SKI | MARSHYSKI(DOT)COM ##
 ## MARSHYSKI[AT]GMAIL[DOT]COM             ##
 ## UPDATE YUM REPOS                       ##
-## 03MAR2013                              ##
+## 05APR2013                              ##
 ## TESTED ON RHEL 5-6                     ##
 ############################################
 
-#CENTOS_59_OS="/repo/CentOS/5.9/os/x86_64/Packages/"
-#CENTOS_59_UP="/repo/CentOS/5.9/updates/x86_64/Packages/"
+#CENTOS_59_OS="/home/www/html/CentOS/5.9/os/x86_64/Packages/"
+#CENTOS_59_UP="/home/www/html/CentOS/5.9/updates/x86_64/Packages/"
 
-CENTOS_64_OS="/repo/CentOS/6.4/os/x86_64/Packages/"
-CENTOS_64_UP="/repo/CentOS/6.4/updates/x86_64/Packages/"
+CENTOS_64_OS="/home/www/html/CentOS/6.4/os/x86_64/Packages/"
+CENTOS_64_UP="/home/www/html/CentOS/6.4/updates/x86_64/Packages/"
 
 DATE=`date +%d%b`
-#CURRENT59="/repo/currentrepo59.$DATE.log"
-#UPDATE59="/repo/updatedrepo59.$DATE.log"
-CURRENT64="/repo/currentrepo64.$DATE.log"
-UPDATE64="/repo/currentrepo64.$DATE.log"
+#CURRENT59="/home/common/currentrepo59.$DATE.log"
+#UPDATE59="/home/common/updatedrepo59.$DATE.log"
+CURRENT64="/home/common/currentrepo64.$DATE.log"
+UPDATE64="/home/common/currentrepo64.$DATE.log"
 MIRROR="mirror.umd.edu"
-FREEZE="/repo"
+FREEZE="/home/www/html/CentOS"
 
 ## FREEZE REPO TO AVOID ALTERATIONS
 if [[ $1 = "-p" ]]; then
