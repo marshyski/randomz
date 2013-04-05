@@ -1,0 +1,17 @@
+#!/bin/bash
+############################################
+## CREATED BY TIM SKI | MARSHYSKI(DOT)COM ##
+## MARSHYSKI[AT]GMAIL[DOT]COM             ##
+## CLEAN UNWANTED YUM REPO PACKAGES       ##
+## 05APR2013                              ##
+## TESTED ON RHEL 5-6                     ##
+############################################
+
+RM_LIST="/root/randomz/configs/rm_list"
+REPO="/home/www/html/CentOS/"
+
+while read line; do
+
+  rm -vf `find $REPO 2>/dev/null | grep -i $line | grep -vi 'python\|perl'`
+
+done < $RM_LIST
