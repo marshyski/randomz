@@ -11,7 +11,7 @@ cd /home/www/html
 rm -f manual.jsp*
 wget http://www.java.com/en/download/manual.jsp
 
-VER=`grep "Recommended Version" manual.jsp | awk -F" " '{ print "jre_"$2 $3 $4 $5"_x64.rpm" }' | tr [:upper:] [:lower:]`
+VER=`grep "Recommended Version" manual.jsp | awk '{ print "jre_"$2 $3 $4 $5"_x64.rpm" }' | tr [:upper:] [:lower:]`
 LINK=`grep "Linux x64 RPM" manual.jsp | awk -F'"' '{ print $4 }' | head -n 1`
 
 wget -O - $LINK > $VER

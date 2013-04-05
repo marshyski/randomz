@@ -7,15 +7,15 @@
 ## TESTED ON RHEL 5-6                     ##
 ############################################
 
-CENTOS_59_OS="/repo/CentOS/5.9/os/x86_64/Packages/"
-CENTOS_59_UP="/repo/CentOS/5.9/updates/x86_64/Packages/"
+#CENTOS_59_OS="/repo/CentOS/5.9/os/x86_64/Packages/"
+#CENTOS_59_UP="/repo/CentOS/5.9/updates/x86_64/Packages/"
 
 CENTOS_64_OS="/repo/CentOS/6.4/os/x86_64/Packages/"
 CENTOS_64_UP="/repo/CentOS/6.4/updates/x86_64/Packages/"
 
 DATE=`date +%d%b`
-CURRENT59="/repo/currentrepo59.$DATE.log"
-UPDATE59="/repo/updatedrepo59.$DATE.log"
+#CURRENT59="/repo/currentrepo59.$DATE.log"
+#UPDATE59="/repo/updatedrepo59.$DATE.log"
 CURRENT64="/repo/currentrepo64.$DATE.log"
 UPDATE64="/repo/currentrepo64.$DATE.log"
 MIRROR="mirror.umd.edu"
@@ -34,32 +34,32 @@ fi
 if [[ `ping -c3 $MIRROR | grep '0% packet'` != "" ]]; then
 
     ls -1R $CENTOS_64_OS > $CURRENT64
-    ls -1R $CENTOS_59_OS > $CURRENT59
+#    ls -1R $CENTOS_59_OS > $CURRENT59
 
     cd $CENTOS_64_OS
     wget -r -nd -nc --reject "i386" $MIRROR/centos/6.4/os/x86_64/Packages/
     cd $CENTOS_64_UP
     wget -r -nd -nc --reject "i386" $MIRROR/centos/6.4/updates/x86_64/Packages/
-    cd $CENTOS_59_OS
-    wget -r -nd -nc --reject "i386" $MIRROR/centos/5.9/os/x86_64/CentOS/
-    cd $CENTOS_59_UP
-    wget -r -nd -nc --reject "i386" $MIRROR/centos/5.9/updates/x86_64/RPMS
+ #   cd $CENTOS_59_OS
+ #   wget -r -nd -nc --reject "i386" $MIRROR/centos/5.9/os/x86_64/CentOS/
+ #   cd $CENTOS_59_UP
+ #   wget -r -nd -nc --reject "i386" $MIRROR/centos/5.9/updates/x86_64/RPMS
 
 
     createrepo `dirname "$CENTOS_64_OS"`
     createrepo `dirname "$CENTOS_64_UP"`
-    createrepo `dirname "$CENTOS_59_OS"`
-    createrepo `dirname "$CENTOS_59_UP"`
+#    createrepo `dirname "$CENTOS_59_OS"`
+#    createrepo `dirname "$CENTOS_59_UP"`
     
     chmod -f 
      
     ls -1R $CENTOS_64_OS > $UPDATE64
-    ls -1R $CENTOS_59_OS > $UPDATE59
+#    ls -1R $CENTOS_59_OS > $UPDATE59
 
     echo ""
     echo "`diff $CURRENT64 $UPDATE64 | grep '>' | wc -l` files have been added in our local 6.4 repo."
-    echo ""
-    echo "`diff $CURRENT59 $UPDATE59 | grep '>' | wc -l` files have been added in our local 5.9 repo."	
+#    echo ""
+#    echo "`diff $CURRENT59 $UPDATE59 | grep '>' | wc -l` files have been added in our local 5.9 repo."	
 
 else
    
