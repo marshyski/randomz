@@ -63,7 +63,6 @@ ls -l $LOGDIR* >> $LOG
 
 ### NOTIFY ROOT AND CHANGE LOG NAME
 if [[ `grep '^Infected' $LOG | awk -F": " '{ print $2 }'` -gt 0 ]]; then
-   /usr/bin/notes -u root VIRUS FOUND!!!
    mv -f $LOG $LOGDIR`hostname`.FOUND-VIRUS.`date +%m%d%Y`.log
 fi
 

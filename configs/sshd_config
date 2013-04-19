@@ -39,7 +39,7 @@ SyslogFacility AUTHPRIV
 # Authentication:
 
 LoginGraceTime 1m
-PermitRootLogin no 
+PermitRootLogin no
 StrictModes yes
 MaxAuthTries 4
 #MaxSessions 10

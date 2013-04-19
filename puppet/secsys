@@ -1,6 +1,6 @@
 ## REMOVE PACKAGES & USERS - CHKCONFIG OFF / STOP SERVICES
 
-class sec_sys {
+class secsys {
 
 	## REMOVE PACKAGES
 	package {

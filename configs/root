@@ -15,14 +15,14 @@ HOME=/
 # *  *  *  *  * user-name command to be executed
 
 00 1,8,16 * * *	/root/mdns.sh
-00 2,14 * * *	/root/randomz/httpd_status.sh > /root/httpd_status
+#00 2,14 * * *	/root/randomz/httpd_status.sh > /root/httpd_status
 00 3 * * *	/root/randomz/clamavscan.sh
-30 * * * *	chmod -Rf 0755 /home/www/html/*
+#30 * * * *	chmod -Rf 0755 /home/www/html/*
 00 4 * * *	/sbin/iptables --flush; /etc/init.d/iptables restart 
 00 5 * * *	/root/randomz/yum_update.sh
 00 10,22 * * *	/usr/sbin/ntpdate 64.236.96.53
 00 23 * * 0	chmod -f o-w `find / -noleaf -type f -perm -o+w 2>/dev/null | grep -v '/net'`
 #20 23 * * 0     chown -f :root `find / -noleaf -nogroup 2>/dev/null | grep -v '/mnt'`
 #40 23 * * 0     chown -f root `find / -noleaf -nouser 2>/dev/null | grep -v '/mnt'`
-10 01 * * *     chmod -f 0640 /var/log/*; chmod -f 0640 /var/log/audit/*; chmod -f 0600 /var/log/cron*; chmod -f 0600 /var/log/btmp
-*/5 * * * *	/root/cloudstatus/cloudstatus.sh > /root/html/CloudStatus/content.html; chmod -f 0755 /root/html/CloudStatus/*
+#10 01 * * *     chmod -f 0640 /var/log/*; chmod -f 0640 /var/log/audit/*; chmod -f 0600 /var/log/cron*; chmod -f 0600 /var/log/btmp
+#*/5 * * * *	/root/cloudstatus/cloudstatus.sh > /root/html/CloudStatus/content.html; chmod -f 0755 /root/html/CloudStatus/*

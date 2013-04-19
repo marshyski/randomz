@@ -6,13 +6,4 @@
 
 touch /var/lock/subsys/local
 /sbin/sysctl -p
-
-PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9-_!@#$%^&*()_+{}|:<>?=' | fold -w 32 | head -n 1`
-echo "$PASS" | passwd --stdin root 1> /dev/null
-
-rm -rf /var/log/httpd/*
-chown -f root:apache /var/log/httpd
-chmod -f 0770 /var/log/httpd
-/etc/init.d/httpd restart
-
 /usr/sbin/ntpdate 64.236.96.53
