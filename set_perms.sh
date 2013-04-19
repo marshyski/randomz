@@ -11,8 +11,8 @@
 sed -i 's/0:99999:7/1:60:14/' /etc/shadow
 
 ## DISABLE IPv6 IN /ETC/NETCONFIG
-sed -i 's/udp6/#udp6/' /etc/netconfig
-sed -i 's/tcp6/#tcp6/' /etc/netconfig
+sed -i 's/udp6/#udp6/' /etc/netconfig 2>/dev/null
+sed -i 's/tcp6/#tcp6/' /etc/netconfig 2>/dev/null
 
 ## SET UMASKS
 grep umask /etc/* | grep -v '#\|pear.conf\|php.ini\|ltrace'| awk -F":" '{ print $1 }' > /tmp/umask
@@ -30,15 +30,20 @@ rm -f /tmp/umask
 echo ""
 echo "Find broken symbolic links in common executable paths"
 find /usr/bin /usr/sbin /sbin /bin /usr/local/bin /usr/local/sbin /etc -xtype l -exec ls -Lla {} \;
+echo ""
 
 ## SET PERMISSIONS ON SYSTEM/SECURITY LOGS
-chmod -f 0640 /var/log/*; chmod -f 0640 /var/log/audit/*; chmod -f 0600 /var/log/cron*
+chmod -f 0640 /var/log/*
+chmod -f 0640 /var/log/audit/*
+chmod -f 0600 /var/log/cron*
+chmod -f 0600 /var/log/btmp
+chmod -f 0660 /var/log/wtmp
 
 ## REMOVE WRITE FROM WORLD WRITEABLE FILES
 chmod -f o-w `find / -noleaf -type f -perm -o+w 2>/dev/null`
 
 ## REPLACE OLD GIDs WITH GROUP ROOT
-chown -f :root `find / -noleaf -nogroup 2>/dev/null | grep -v '/mnt\|/net'`
+#chown -f :root `find / -noleaf -nogroup 2>/dev/null | grep -v '/mnt\|/net'`
 
 ## REPLACE OLD UIDs WITH USER ROOT
-chown -f root: `find / -noleaf -nouser 2>/dev/null | grep -v '/mnt\|/net'`
+#chown -f root: `find / -noleaf -nouser 2>/dev/null | grep -v '/mnt\|/net'`
