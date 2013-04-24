@@ -7,7 +7,7 @@
 ## TESTED ON RHEL 5-6                     ##
 ############################################
 
-cd /home/www/html
+cd $HOME 
 rm -f manual.jsp*
 wget http://www.java.com/en/download/manual.jsp
 
