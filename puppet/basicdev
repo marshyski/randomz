@@ -1,0 +1,22 @@
+## INSTALL BASIC DEVELOPMENT PACKAGES
+
+class basicdev {
+
+        package {
+          [
+	    'bzip2',
+	    'dos2unix',
+	    'git',
+	    'glances',
+	    'lynx',
+	    'man',
+	    'python',
+	    'rsync',
+	    'ruby',
+	    'rubygems',
+	    'screen',
+	    'wget',
+          ]:
+            ensure => installed,
+        }
+}
