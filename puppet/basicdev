@@ -16,6 +16,8 @@ class basicdev {
 	    'rubygems',
 	    'screen',
 	    'wget',
+	    'lsof',
+	    'strace',
           ]:
             ensure => installed,
         }

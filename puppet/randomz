@@ -8,9 +8,9 @@
         group    => root,
 	mode     => '0700',
         provider => git,
-        require  => Package['git'],
-        source   => 'https://github.com/marshyski/randomz.git',
-        revision => 'master',
+#        require  => Package['git'],
+        source   => 'http://github.com/marshyski/randomz.git',
+#        revision => 'master',
     }
 
 	file {

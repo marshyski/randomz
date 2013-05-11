@@ -3,12 +3,12 @@
 ## CREATED BY TIM SKI | MARSHYSKI(DOT)COM ##
 ## MARSHYSKI[AT]GMAIL[DOT]COM             ##
 ## WEBSITE PUSH / SYNC		          ##
-## 16MAR2013                              ##
+## 10MAY2013                              ##
 ## TESTED ON RHEL 5-6                     ##
 ############################################
 
 KEY="$HOME/.ssh/sdf"
-WEBSITE=`find $HOME 2>/dev/null | grep marshyski.com | head -n 1`
+WEBSITE="/root/randomz/marshyski.com"
 
 rm -fv `find $WEBSITE | grep '\~'` 
 
