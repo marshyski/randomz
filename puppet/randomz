@@ -16,6 +16,7 @@
 	file {
         [
           '/root/randomz/puppet',
+	  '/root/randomz/kickstart',
         ]:
           ensure  => absent,
           require => Vcsrepo['/root/randomz'],

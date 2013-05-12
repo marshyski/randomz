@@ -54,6 +54,7 @@ date >> $LOG
 $CLAMSCAN --version >> $LOG
 echo "" >> $LOG
 $CLAMSCAN -ri $DIR_SCAN 2>/dev/null >> $LOG
+echo "Directories Scanned: $DIR_SCAN" >> $LOG
 echo "" >> $LOG
 
 ### LOG SUMMARY AUDIT

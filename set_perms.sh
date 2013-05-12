@@ -32,6 +32,11 @@ echo "Find broken symbolic links in common executable paths"
 find /usr/bin /usr/sbin /sbin /bin /usr/local/bin /usr/local/sbin /etc -xtype l -exec ls -Lla {} \;
 echo ""
 
+## FIND WORLD WRITABLE DIRECTORIES
+echo "Find world writable directories"
+find / -type d -perm -1000 -exec ls -ld {} \; 2>/dev/null | grep -vs '/mnt\|/net'
+echo ""
+
 ## SET PERMISSIONS ON SYSTEM/SECURITY LOGS
 chmod -f 0640 /var/log/*
 chmod -f 0640 /var/log/audit/*
@@ -43,7 +48,7 @@ chmod -f 0660 /var/log/wtmp
 chmod -f o-w `find / -noleaf -type f -perm -o+w 2>/dev/null`
 
 ## REPLACE OLD GIDs WITH GROUP ROOT
-#chown -f :root `find / -noleaf -nogroup 2>/dev/null | grep -v '/mnt\|/net'`
+#chown -f :root `find / -noleaf -nogroup 2>/dev/null | grep -vs '/mnt\|/net'`
 
 ## REPLACE OLD UIDs WITH USER ROOT
-#chown -f root: `find / -noleaf -nouser 2>/dev/null | grep -v '/mnt\|/net'`
+#chown -f root: `find / -noleaf -nouser 2>/dev/null | grep -vs '/mnt\|/net'`
