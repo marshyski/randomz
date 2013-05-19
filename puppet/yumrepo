@@ -33,6 +33,7 @@ file { '/root/randomz':
         owner   => $repo_user,
         group   => $repo_group,
         mode    => '0750',
+	require => Class['nginx'];
      }
 
 file { '/root/randomz/configs':
