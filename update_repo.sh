@@ -51,8 +51,7 @@ if [[ `ping -c3 $MIRROR | grep '0% packet'` != "" ]]; then
 #    createrepo `dirname "$CENTOS_59_OS"`
 #    createrepo `dirname "$CENTOS_59_UP"`
     
-    chmod -f 
-     
+
     ls -1R $CENTOS_64_OS > $UPDATE64
 #    ls -1R $CENTOS_59_OS > $UPDATE59
 
