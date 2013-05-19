@@ -17,6 +17,7 @@ class secsys {
     	    'vnc-server',
     	    'tftp-server',
     	    'vsftpd',
+	    'ftp',
 	    'xinetd',
 #           'nmap',
             'tcpdump',
@@ -38,6 +39,8 @@ class secsys {
 	    'oprofile',
 	    'mtr',
 	    'tcsh',
+	    'nc',
+	    'telnet',
 	  ]:
 	    ensure => absent,
 	}
@@ -58,8 +61,18 @@ class secsys {
 	    'netdump',
 	    'pcap',
 	    'uucp',
+	    'irc',
+	    'gnats',
 	  ]:
 	    ensure => absent,
+	}
+
+	user {
+	  [
+	    'gdm',
+	    'clamav',
+	  ]:
+	    password => '*',
 	}
 
 	## CHKCONFIG OFF / STOP SERVICES
