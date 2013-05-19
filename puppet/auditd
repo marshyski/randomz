@@ -5,7 +5,7 @@ class auditd {
 	## INSTALL AUDITD
 	package {'audit':
 	  ensure => installed;
-	}	
+	}
 
 	## START AUDITD DAEMON
 	service {'auditd':
@@ -25,7 +25,7 @@ class auditd {
 	  require => Package['audit'],
         }
 
-	## COPY CONFIG AUDITD 
+	## COPY CONFIG AUDITD
 	file { '/etc/audit/auditd.conf':
           ensure  =>  present,
           owner   => 'root',
@@ -34,10 +34,10 @@ class auditd {
           source  => 'puppet:///modules/auditd/auditd.conf',
           require => Package['audit'],
 	}
-	
+
 	## REMOVE RPMNEW FILES
 	file {
-	  [	
+	  [
 	    '/etc/audit/audit.rules.rpmnew',
 	    '/etc/audit/audit.conf.rpmnew',
 	  ]:

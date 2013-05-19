@@ -5,10 +5,35 @@ class nginx(
   $nginx_user = 'nginx',
   $nginx_group = 'nginx',){
 
-## INSTALL NGINX 
+## INSTALL NGINX
 package {'nginx':
       ensure => installed;
 }
+
+service {'nginx':
+     ensure    => running,
+     enable    => true,
+     hasstatus => true,
+     require   => Package['nginx'];
+    }
+
+file { '/etc/nginx/nginx.conf':
+      ensure  => present,
+      owner   => $nginx_user,
+      group   => $nginx_group,
+      mode    => '0640',
+      source  => 'puppet:///modules/nginx/nginx.conf',
+      require => Package['nginx'];
+    }
+
+file { '/etc/nginx/conf.d/default.conf':
+      ensure  => present,
+      owner   => $nginx_user,
+      group   => $nginx_group,
+      mode    => '0640',
+      source  => 'puppet:///modules/nginx/default.conf',
+      require => Package['nginx'];
+    }
 
 ## SETUP VARLOG DIRECTORY
 file { '/var/log/nginx':
