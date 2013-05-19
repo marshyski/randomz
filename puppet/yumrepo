@@ -7,6 +7,11 @@ class yumrepo(
   $repo_dir = '/usr/share/nginx/html/CentOS',
   $os_ver = '6.4',){
 
+## INSTALL CREATEREPO
+package {'createrepo':
+      ensure => installed;
+}
+
 ## SETUP YUM REPO DIRECTORIES
 file {
 	[
@@ -28,6 +33,7 @@ file {
       	  require => Class['nginx'];
     }
 
+## CREATE DIRECTORY
 file { '/root/randomz':
 	ensure  => directory,
         owner   => $repo_user,
@@ -36,6 +42,7 @@ file { '/root/randomz':
 	require => Class['nginx'];
      }
 
+## CREATE DIRECTORY
 file { '/root/randomz/configs':
         ensure  => directory,
         owner   => $repo_user,
@@ -44,6 +51,7 @@ file { '/root/randomz/configs':
         require => File['/root/randomz'];
      }
 
+## PUSH SCRIPT TO MGT SERVER
 file { '/root/randomz/rm_repo_packages.sh':
         ensure  => present,
         owner   => $repo_user,
@@ -53,6 +61,7 @@ file { '/root/randomz/rm_repo_packages.sh':
 	require => File['/root/randomz'];
      }
 
+## PUSH RPM REMOVE LIST TO MGT SERVER
 file { '/root/randomz/configs/rm_list':
         ensure  => present,
         owner   => $repo_user,
@@ -62,6 +71,7 @@ file { '/root/randomz/configs/rm_list':
         require => File['/root/randomz/configs'];
      }
 
+## EXECUTE SCRIPT TO REMOVE UNWANTED PACKAGES
 exec {'rm_repo_packages.sh':
 	command => '/root/randomz/rm_repo_packages.sh',
 	user	=> $repo_user,
