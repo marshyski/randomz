@@ -8,7 +8,7 @@
 ############################################
 
 KEY="$HOME/.ssh/sdf"
-WEBSITE="/root/randomz/marshyski.com"
+WEBSITE="/root/marshyski.com"
 
 rm -fv `find $WEBSITE | grep '\~'` 
 

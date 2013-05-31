@@ -24,12 +24,22 @@ createrepo `dirname "$CENTOS_64_UP"`
 #createrepo `dirname "$CENTOS_59_OS"`
 #createrepo `dirname "$CENTOS_59_UP"`
 
+chmod -f 0755 $CENTOS_64_OS
+chmod -f 0755 $CENTOS_64_OS/*
+chmod -f 0755 $CENTOS_64_UP
+chmod -f 0755 $CENTOS_64_UP/*
+
 chmod -f 0755 $CENTOS_64_DATA
 chmod -f 0755 $CENTOS_64_DATA2
 chmod -f 0644 $CENTOS_64_DATA/*
 chmod -f 0644 $CENTOS_64_DATA2/*
 
-chmod -f 0755 $CENTOS_59_DATA
-chmod -f 0755 $CENTOS_59_DATA2
-chmod -f 0644 $CENTOS_59_DATA/*
-chmod -f 0644 $CENTOS_59_DATA2/*
+#chmod -f 0755 $CENTOS_59_OS
+#chmod -f 0755 $CENTOS_59_OS/*
+#chmod -f 0755 $CENTOS_59_UP
+#chmod -f 0755 $CENTOS_59_UP/*
+
+#chmod -f 0755 $CENTOS_59_DATA
+#chmod -f 0755 $CENTOS_59_DATA2
+#chmod -f 0644 $CENTOS_59_DATA/*
+#chmod -f 0644 $CENTOS_59_DATA2/*
