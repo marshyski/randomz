@@ -33,6 +33,13 @@ class aide {
 
 	## ENSURE AIDE DB's ARE SET WITH CORRECT PERMISSIONS AND OWNERSHIP
 	file {
+	'/etc/aide.conf':
+		ensure  => present,
+		owner   => 'root',
+		group   => 'root',
+		mode	=> '0600',
+		source  => 'puppet:///modules/aide/aide.conf',
+		require => Package['aide'];
 	'/var/lib/aide/aide.db.gz':
 		owner   => root,
 		group   => root,

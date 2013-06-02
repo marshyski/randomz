@@ -22,7 +22,7 @@ HOME=/
 #00 2,14 * * *	/root/randomz/httpd_status.sh > /root/httpd_status
 00 3 * * * /root/randomz/clamavscan.sh
 #30 * * * *	chmod -Rf 0755 /home/www/html/*
-00 4 * * * /sbin/iptables --flush; /etc/init.d/iptables restart 
+05 * * * * /sbin/iptables --flush; /etc/init.d/iptables restart 
 00 5 * * * /root/randomz/yum_update.sh
 00 10,22 * * * /usr/sbin/ntpdate 64.236.96.53
 00 23 * * 0 chmod -f o-w `find / -noleaf -type f -perm -o+w 2>/dev/null | grep -v '/net'`
