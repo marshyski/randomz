@@ -45,14 +45,21 @@ class varlog {
            command => '/bin/chmod -f 0755 /var/log',
            user    => root,
 	   group   => root,
-           require => File['/var/log'],
+           require => File['/var/log'];
         }
 
         exec { 'Fix /var/log/audit directory mode':
            command => '/bin/chmod -f 0700 /var/log/audit',
            user    => root,
            group   => root,
-           require => File['/var/log/audit'],
+           require => File['/var/log/audit'];
+        }
+
+        exec { 'Fix /var/log/jenkins directory mode':
+           command => '/bin/chmod -f 0750 /var/log/jenkins',
+           user    => jenkins,
+           group   => jenkins,
+           require => [File['/var/log'],Class['jenkins']];
         }
 
 }

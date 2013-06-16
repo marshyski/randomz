@@ -5,7 +5,7 @@
 class jenkins(
   $jenkins_user = 'jenkins',
   $jenkins_group = 'jenkins',
-  $jenkins_port = '8181',
+  $jenkins_port = '8080',
   $jenkins_prefix = undef,
   $version = 'present') {
 
@@ -28,7 +28,7 @@ class jenkins(
     package { 'jenkins':
       ensure   => $version,
       provider => 'yum',
-      require  => Yumrepo['jenkins'],
+      require  => Yumrepo['jenkins'];
     } ->
 
     file  { '/var/log/jenkins':
@@ -36,6 +36,14 @@ class jenkins(
       owner  => $jenkins_user,
       group  => $jenkins_group,
       mode   => '0750',
+    }->
+
+    file  { '/var/log/jenkins/jenkins.log':
+      ensure  => present,
+      owner   => $jenkins_user,
+      group   => $jenkins_group,
+      mode    => '0640',
+      require => File['/var/log/jenkins'];
     }->
 
     file { '/var/cache/jenkins':
@@ -57,7 +65,7 @@ class jenkins(
       owner   => $jenkins_user,
       group   => $jenkins_group,
       mode    => '0750',
-      require => File['/var/lib/jenkins'],
+      require => File['/var/lib/jenkins'];
     }
 
     if ! defined(Package['fontconfig'])       { package { 'fontconfig':       ensure => installed } }
@@ -83,6 +91,6 @@ class jenkins(
       enable     => true,
       hasrestart => true,
       hasstatus  => true,
-      require    => [Package['jenkins'],File['/etc/sysconfig/jenkins']]
+      require    => [Package['jenkins'],File['/etc/sysconfig/jenkins']];
     }
 }
