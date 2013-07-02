@@ -66,21 +66,21 @@ class cron {
 #	    group => root,
 #	    mode  => '0600';
 	}
-	
+
 	## STOP CRON-RELATED SERVICES OFF
 	service {
 	  [
-	    'anacron',		
+	    'anacron',
 	    'atd',
 	  ]:
 	    ensure => stopped,
 	    enable => false,
 	}
-	
+
 	## START SERVICE CROND & CHKCONFIG ON
 	service	{ 'crond':
 	  ensure => running,
 	  enable => true,
 	}
-	
-}	
+
+}

@@ -40,7 +40,7 @@ class varlog {
             mode  => '0600',
 	    require => File['/var/log'];
 	}
-	
+
         exec { 'Fix /var/log directory mode':
            command => '/bin/chmod -f 0755 /var/log',
            user    => root,
